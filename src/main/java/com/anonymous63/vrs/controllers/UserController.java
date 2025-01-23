@@ -1,11 +1,9 @@
 package com.anonymous63.vrs.controllers;
 
-import com.anonymous63.vrs.models.dtos.requestDtos.UserReqDto;
-import com.anonymous63.vrs.models.dtos.responseDtos.UserResDto;
+import com.anonymous63.vrs.models.dtos.reqDtos.UserReqDto;
+import com.anonymous63.vrs.models.dtos.resDtos.UserResDto;
 import com.anonymous63.vrs.payloads.ApiResponse;
 import com.anonymous63.vrs.services.UserService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,11 +22,7 @@ public class UserController implements CrudController<UserReqDto, UserResDto, Lo
     @Override
     public ApiResponse<UserResDto> create(UserReqDto userReqDto) {
         UserResDto createdUser = this.userService.create(userReqDto);
-        ApiResponse<UserResDto> response = new ApiResponse<>();
-        response.setStatus(true);
-        response.setMessage("User created successfully.");
-        response.setData(createdUser);
-        return response;
+        return ApiResponse.<UserResDto>builder().status(true).message("User created successfully.").data(createdUser).build();
     }
 
     @Override

@@ -1,15 +1,17 @@
 package com.anonymous63.vrs.services.impl;
 
 import com.anonymous63.vrs.exceptions.DuplicateResourceException;
-import com.anonymous63.vrs.models.dtos.requestDtos.UserReqDto;
-import com.anonymous63.vrs.models.dtos.responseDtos.UserResDto;
+import com.anonymous63.vrs.models.dtos.reqDtos.UserReqDto;
+import com.anonymous63.vrs.models.dtos.resDtos.UserResDto;
 import com.anonymous63.vrs.models.entities.User;
 import com.anonymous63.vrs.repositories.UserRepo;
 import com.anonymous63.vrs.services.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepo userRepo;
@@ -23,7 +25,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResDto create(UserReqDto request) {
         this.userRepo.findFirstByNameOrEmail(request.getName(), request.getEmail()).ifPresent(user -> {
-            throw new DuplicateResourceException(User.class.getSimpleName(), request.getName());
+            if (!user.getId().equals(request.getId())) {
+                String conflictField = "";
+                if (user.getName().equals(request.getName())) {
+                    conflictField = "name: " + request.getName();
+                }
+                if (user.getEmail().equals(request.getEmail())) {
+                    if (!conflictField.isEmpty()) {
+                        conflictField += " and ";
+                    }
+                    conflictField += "email: " + request.getEmail();
+                }
+                throw new DuplicateResourceException(User.class.getSimpleName(), conflictField);
+            }
         });
         User user = this.mapper.map(request, User.class);
         User createdUser = this.userRepo.save(user);

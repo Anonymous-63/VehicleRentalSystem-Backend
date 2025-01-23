@@ -1,8 +1,8 @@
 package com.anonymous63.vrs.controllers;
 
 import com.anonymous63.vrs.payloads.ApiResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
 public interface CrudController<REQ, RES, ID> {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    ApiResponse<RES> create(@RequestBody REQ req);
+    ApiResponse<RES> create(@Valid @RequestBody REQ req);
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.CREATED)

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
+@Entity
 @Table(name = "vehicles")
 public class Vehicle {
     @Id
@@ -11,7 +12,7 @@ public class Vehicle {
     private Long id;
     private String color;
     private String licensePlate;
-    private int manufYear;
+    private int manufactureYear;
     private String vehicleRegStatus;
     private String fuelType;
     private String transmission;
