@@ -12,4 +12,6 @@ public interface CrudService<REQ, RES, ID> {
     RES update(ID id, REQ request);
 
     void delete(ID id);
+
+    void multiDelete(List<ID> ids);
 }

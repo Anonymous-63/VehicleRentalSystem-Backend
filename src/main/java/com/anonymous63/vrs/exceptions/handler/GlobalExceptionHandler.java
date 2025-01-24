@@ -29,4 +29,9 @@ public class GlobalExceptionHandler {
         List<ErrorResponse> responseList = ex.getBindingResult().getFieldErrors().stream().map(error -> ErrorResponse.builder().field(error.getField()).message(error.getDefaultMessage()).build()).toList();
         return ApiResponse.<List<ErrorResponse>>builder().status(false).errors(responseList).build();
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ApiResponse<?> handleIllegalArgumentException(IllegalArgumentException ex) {
+        return ApiResponse.builder().status(false).message(ex.getMessage()).build();
+    }
 }

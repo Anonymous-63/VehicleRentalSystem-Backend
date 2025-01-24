@@ -26,22 +26,32 @@ public class UserController implements CrudController<UserReqDto, UserResDto, Lo
     }
 
     @Override
-    public ApiResponse<UserResDto> update(Long aLong, UserReqDto userReqDto) {
-        return null;
+    public ApiResponse<UserResDto> update(Long id, UserReqDto userReqDto) {
+        UserResDto updatedUser = this.userService.update(id, userReqDto);
+        return ApiResponse.<UserResDto>builder().status(true).message("User updated successfully").data(updatedUser).build();
     }
 
     @Override
-    public ApiResponse<?> delete(Long aLong) {
-        return null;
+    public ApiResponse<?> delete(Long id) {
+        this.userService.delete(id);
+        return ApiResponse.builder().status(true).message("User deleted successfully.").build();
     }
 
     @Override
-    public ApiResponse<UserResDto> getById(Long aLong) {
-        return null;
+    public ApiResponse<?> multiDelete(List<Long> ids) {
+        this.userService.multiDelete(ids);
+        return ApiResponse.builder().status(true).message("Users deleted successfully").build();
+    }
+
+    @Override
+    public ApiResponse<UserResDto> getById(Long id) {
+        UserResDto userResDto = this.userService.getById(id);
+        return ApiResponse.<UserResDto>builder().status(true).message("User fetched successfully").data(userResDto).build();
     }
 
     @Override
     public ApiResponse<List<UserResDto>> getAll() {
-        return null;
+        List<UserResDto> userResDtos = this.userService.getAll();
+        return ApiResponse.<List<UserResDto>>builder().status(true).message("Users fetched successfully").data(userResDtos).build();
     }
 }

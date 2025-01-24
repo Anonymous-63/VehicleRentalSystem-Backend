@@ -20,6 +20,10 @@ public interface CrudController<REQ, RES, ID> {
     @ResponseStatus(HttpStatus.OK)
     ApiResponse<?> delete(@PathVariable ID id);
 
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.OK)
+    ApiResponse<?> multiDelete(@RequestBody List<ID> ids);
+
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
     ApiResponse<RES> getById(@PathVariable ID id);
