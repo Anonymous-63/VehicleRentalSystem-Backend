@@ -4,11 +4,13 @@ import com.anonymous63.vrs.models.dtos.reqDtos.UserReqDto;
 import com.anonymous63.vrs.models.dtos.resDtos.UserResDto;
 import com.anonymous63.vrs.payloads.ApiResponse;
 import com.anonymous63.vrs.services.UserService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/user")
 public class UserController implements CrudController<UserReqDto, UserResDto, Long> {
