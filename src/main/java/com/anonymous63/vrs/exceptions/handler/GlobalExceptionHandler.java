@@ -2,14 +2,13 @@ package com.anonymous63.vrs.exceptions.handler;
 
 import com.anonymous63.vrs.exceptions.DuplicateResourceException;
 import com.anonymous63.vrs.exceptions.ResourceNotFoundException;
-import com.anonymous63.vrs.payloads.ApiResponse;
-import com.anonymous63.vrs.payloads.ErrorResponse;
+import com.anonymous63.vrs.payloads.responses.ApiResponse;
+import com.anonymous63.vrs.payloads.responses.ErrorResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.List;
-import java.util.Objects;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {

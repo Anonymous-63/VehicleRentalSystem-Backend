@@ -5,6 +5,8 @@ import com.anonymous63.vrs.exceptions.ResourceNotFoundException;
 import com.anonymous63.vrs.models.dtos.reqDtos.UserReqDto;
 import com.anonymous63.vrs.models.dtos.resDtos.UserResDto;
 import com.anonymous63.vrs.models.entities.User;
+import com.anonymous63.vrs.payloads.requests.AuthRequest;
+import com.anonymous63.vrs.payloads.responses.AuthResponse;
 import com.anonymous63.vrs.repositories.UserRepo;
 import com.anonymous63.vrs.services.UserService;
 import org.modelmapper.ModelMapper;
@@ -18,6 +20,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepo userRepo;
     private final ModelMapper mapper;
+
 
     public UserServiceImpl(UserRepo userRepo, ModelMapper mapper) {
         this.userRepo = userRepo;
@@ -79,10 +82,7 @@ public class UserServiceImpl implements UserService {
             }
         });
 
-        user.setName(request.getName());
-        user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
-        user.setAbout(request.getAbout());
+        this.mapper.map(request, user);
         User updatedUser = this.userRepo.save(user);
         return this.mapper.map(updatedUser, UserResDto.class);
     }

@@ -1,6 +1,6 @@
 package com.anonymous63.vrs.controllers;
 
-import com.anonymous63.vrs.payloads.ApiResponse;
+import com.anonymous63.vrs.payloads.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

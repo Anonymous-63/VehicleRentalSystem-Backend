@@ -2,7 +2,7 @@ package com.anonymous63.vrs.controllers;
 
 import com.anonymous63.vrs.models.dtos.reqDtos.UserReqDto;
 import com.anonymous63.vrs.models.dtos.resDtos.UserResDto;
-import com.anonymous63.vrs.payloads.ApiResponse;
+import com.anonymous63.vrs.payloads.responses.ApiResponse;
 import com.anonymous63.vrs.services.UserService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/user")
 public class UserController implements CrudController<UserReqDto, UserResDto, Long> {
 
     private final UserService userService;
@@ -47,13 +47,13 @@ public class UserController implements CrudController<UserReqDto, UserResDto, Lo
 
     @Override
     public ApiResponse<UserResDto> getById(Long id) {
-        UserResDto userResDto = this.userService.getById(id);
-        return ApiResponse.<UserResDto>builder().status(true).message("User fetched successfully").data(userResDto).build();
+        UserResDto retrievedUser = this.userService.getById(id);
+        return ApiResponse.<UserResDto>builder().status(true).message("User retrieved successfully").data(retrievedUser).build();
     }
 
     @Override
     public ApiResponse<List<UserResDto>> getAll() {
-        List<UserResDto> userResDtos = this.userService.getAll();
-        return ApiResponse.<List<UserResDto>>builder().status(true).message("Users fetched successfully").data(userResDtos).build();
+        List<UserResDto> retrievedUsers = this.userService.getAll();
+        return ApiResponse.<List<UserResDto>>builder().status(true).message("Users fetched successfully").data(retrievedUsers).build();
     }
 }
