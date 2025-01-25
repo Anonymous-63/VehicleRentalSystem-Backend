@@ -10,6 +10,7 @@ import com.anonymous63.vrs.payloads.responses.AuthResponse;
 import com.anonymous63.vrs.repositories.UserRepo;
 import com.anonymous63.vrs.services.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,11 +21,12 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepo userRepo;
     private final ModelMapper mapper;
+    private final PasswordEncoder passwordEncoder;
 
-
-    public UserServiceImpl(UserRepo userRepo, ModelMapper mapper) {
+    public UserServiceImpl(UserRepo userRepo, ModelMapper mapper, PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
         this.mapper = mapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -45,6 +47,7 @@ public class UserServiceImpl implements UserService {
             }
         });
         User user = this.mapper.map(request, User.class);
+        user.setPassword(this.passwordEncoder.encode(request.getPassword()));
         User createdUser = this.userRepo.save(user);
         return this.mapper.map(createdUser, UserResDto.class);
     }
@@ -83,6 +86,7 @@ public class UserServiceImpl implements UserService {
         });
 
         this.mapper.map(request, user);
+        user.setPassword(this.passwordEncoder.encode(request.getPassword()));
         User updatedUser = this.userRepo.save(user);
         return this.mapper.map(updatedUser, UserResDto.class);
     }

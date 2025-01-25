@@ -6,7 +6,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/CarRentalSystem
     username: postgres
-    password: sipl
+    password: developer
     driver-class-name: org.postgresql.Driver
 
   jpa:
