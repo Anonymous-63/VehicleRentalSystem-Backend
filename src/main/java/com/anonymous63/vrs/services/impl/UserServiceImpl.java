@@ -105,4 +105,10 @@ public class UserServiceImpl implements UserService {
         List<User> users = this.userRepo.findAllById(ids);
         this.userRepo.deleteAll(users);
     }
+
+    @Override
+    public UserResDto currentUser(String username) {
+        User user = this.userRepo.findByName(username).orElseThrow(() -> new ResourceNotFoundException(User.class.getSimpleName(), "username", username));
+        return this.mapper.map(user, UserResDto.class);
+    }
 }

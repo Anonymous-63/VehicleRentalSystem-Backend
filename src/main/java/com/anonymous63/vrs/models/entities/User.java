@@ -33,8 +33,11 @@ public class User implements UserDetails {
     @Basic(fetch = FetchType.LAZY)
     private String about;
 
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<Vehicle> vehicles = new ArrayList<>();
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Vehicle> vehicles = new ArrayList<>();
+    private List<Booking> bookings = new ArrayList<>();
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)

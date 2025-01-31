@@ -6,5 +6,6 @@ import com.anonymous63.vrs.payloads.requests.AuthRequest;
 import com.anonymous63.vrs.payloads.responses.AuthResponse;
 
 
-public interface UserService extends CrudService<UserReqDto, UserResDto, Long>{
+public interface UserService extends CrudService<UserReqDto, UserResDto, Long> {
+    UserResDto currentUser(String username);
 }
