@@ -107,8 +107,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResDto currentUser(String username) {
-        User user = this.userRepo.findByName(username).orElseThrow(() -> new ResourceNotFoundException(User.class.getSimpleName(), "username", username));
+    public UserResDto currentUser(String email) {
+        User user = this.userRepo.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException(User.class.getSimpleName(), "Email", email));
         return this.mapper.map(user, UserResDto.class);
     }
 }

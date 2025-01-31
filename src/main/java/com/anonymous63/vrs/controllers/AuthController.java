@@ -10,6 +10,7 @@ import com.anonymous63.vrs.utils.JwtHelper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -32,20 +33,21 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserResDto> register(@RequestBody UserReqDto request){
+    public ResponseEntity<UserResDto> register(@RequestBody UserReqDto request) {
         UserResDto createdUser = this.userService.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> createToken(@RequestBody AuthRequest authRequest) {
-        this.authenticate(authRequest.getUsername(), authRequest.getPassword());
-        UserDetails userDetails = this.userDetailsService.loadUserByUsername(authRequest.getUsername());
+        this.authenticate(authRequest.getEmail().toLowerCase(), authRequest.getPassword());
+        UserDetails userDetails = this.userDetailsService.loadUserByUsername(authRequest.getEmail());
 
         String token = this.jwtHelper.generateToken(userDetails);
         String refreshToken = this.jwtHelper.generateRefreshToken(userDetails);
 
         AuthResponse jwtAuthResponse = AuthResponse.builder()
+                .status(true)
                 .token(token)
                 .refreshToken(refreshToken)
                 .build();
@@ -53,8 +55,16 @@ public class AuthController {
         return new ResponseEntity<>(jwtAuthResponse, HttpStatus.OK);
     }
 
-    private void authenticate(String username, String password) {
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
-        this.authenticationManager.authenticate(authenticationToken);
+    private void authenticate(String email, String password) {
+        try {
+            UsernamePasswordAuthenticationToken authenticationToken =
+                    new UsernamePasswordAuthenticationToken(email, password);
+            this.authenticationManager.authenticate(authenticationToken);
+        } catch (BadCredentialsException e) {
+            throw new BadCredentialsException("Invalid email or password!");
+        } catch (Exception e) {
+            throw new RuntimeException("Authentication failed!");
+        }
     }
+
 }

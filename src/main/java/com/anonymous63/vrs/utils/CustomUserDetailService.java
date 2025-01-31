@@ -1,4 +1,5 @@
 package com.anonymous63.vrs.utils;
+
 import com.anonymous63.vrs.exceptions.ResourceNotFoundException;
 import com.anonymous63.vrs.models.entities.User;
 import com.anonymous63.vrs.repositories.UserRepo;
@@ -17,8 +18,8 @@ public class CustomUserDetailService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        return this.userRepo.findByName(name)
-                .orElseThrow(() -> new ResourceNotFoundException(User.class.getSimpleName(), "name",name));
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return this.userRepo.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException(User.class.getSimpleName(), "Email", email));
     }
 }
