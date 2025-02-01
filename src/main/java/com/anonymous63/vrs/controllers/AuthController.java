@@ -33,9 +33,9 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserResDto> register(@RequestBody UserReqDto request) {
+    public ResponseEntity<ApiResponse<UserResDto>> register(@RequestBody UserReqDto request) {
         UserResDto createdUser = this.userService.create(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.<UserResDto>builder().status(true).message("Register successfully.").data(createdUser).build());
     }
 
     @PostMapping("/login")
