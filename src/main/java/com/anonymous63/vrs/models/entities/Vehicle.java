@@ -23,6 +23,4 @@ public class Vehicle {
     private VehicleType type;
     @ManyToOne
     private VehicleModel model;
-    @ManyToOne
-    private VehicleTrimLevel trimLevel;
 }

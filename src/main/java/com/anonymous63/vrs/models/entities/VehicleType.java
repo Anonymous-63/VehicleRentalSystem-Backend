@@ -21,7 +21,4 @@ public class VehicleType {
 
     @ManyToOne
     private VehicleModel vehicleModel;
-
-    @OneToMany(mappedBy = "vehicleType", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<VehicleTrimLevel> vehicleTrimLevels = new ArrayList<>();
 }

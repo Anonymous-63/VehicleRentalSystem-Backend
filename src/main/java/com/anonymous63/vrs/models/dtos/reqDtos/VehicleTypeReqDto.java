@@ -12,6 +12,5 @@ public class VehicleTypeReqDto {
     private String type;
     private String vehicleClass;
     private String engineType;
-    private VehicleModelReqDto vehicleModel;
-    private List<VehicleTrimLevelReqDto> vehicleTrimLevel;
+    private Long modelId;
 }

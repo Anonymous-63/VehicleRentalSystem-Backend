@@ -3,10 +3,11 @@ package com.anonymous63.vrs.services.impl;
 import com.anonymous63.vrs.exceptions.DuplicateResourceException;
 import com.anonymous63.vrs.exceptions.ResourceNotFoundException;
 import com.anonymous63.vrs.models.dtos.reqDtos.VehicleTypeReqDto;
-import com.anonymous63.vrs.models.dtos.resDtos.VehicleTrimLevelResDto;
 import com.anonymous63.vrs.models.dtos.resDtos.VehicleTypeResDto;
-import com.anonymous63.vrs.models.entities.VehicleTrimLevel;
+import com.anonymous63.vrs.models.entities.VehicleBrand;
+import com.anonymous63.vrs.models.entities.VehicleModel;
 import com.anonymous63.vrs.models.entities.VehicleType;
+import com.anonymous63.vrs.repositories.VehicleModelRepo;
 import com.anonymous63.vrs.repositories.VehicleTypeRepo;
 import com.anonymous63.vrs.services.VehicleTypeService;
 import org.modelmapper.ModelMapper;
@@ -19,10 +20,12 @@ import java.util.List;
 public class VehicleTypeServiceImpl implements VehicleTypeService {
 
     private final VehicleTypeRepo vehicleTypeRepo;
+    private final VehicleModelRepo vehicleModelRepo;
     private final ModelMapper mapper;
 
-    public VehicleTypeServiceImpl(VehicleTypeRepo vehicleTypeRepo, ModelMapper mapper) {
+    public VehicleTypeServiceImpl(VehicleTypeRepo vehicleTypeRepo, VehicleModelRepo vehicleModelRepo, ModelMapper mapper) {
         this.vehicleTypeRepo = vehicleTypeRepo;
+        this.vehicleModelRepo = vehicleModelRepo;
         this.mapper = mapper;
     }
 
@@ -31,7 +34,11 @@ public class VehicleTypeServiceImpl implements VehicleTypeService {
         this.vehicleTypeRepo.findByType(request.getType()).ifPresent(vehicleType -> {
             throw new DuplicateResourceException(VehicleType.class.getSimpleName(), request.getType());
         });
+
+        VehicleModel model = this.vehicleModelRepo.findById(request.getModelId())
+                .orElseThrow(() -> new ResourceNotFoundException(VehicleModel.class.getSimpleName(), "Model", String.valueOf(request.getModelId())));
         VehicleType type = mapper.map(request, VehicleType.class);
+        type.setVehicleModel(model);
         VehicleType createdType = this.vehicleTypeRepo.save(type);
         return this.mapper.map(createdType, VehicleTypeResDto.class);
     }

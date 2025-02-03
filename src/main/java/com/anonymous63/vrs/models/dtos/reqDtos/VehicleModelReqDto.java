@@ -11,6 +11,6 @@ public class VehicleModelReqDto {
     private Long id;
     private String model;
     private String description;
-    private VehicleBrandReqDto vehicleBrand;
+    private Long brandId;
     private List<VehicleTypeReqDto> vehicleTypes;
 }

@@ -10,5 +10,5 @@ public class VehicleTypeResDto {
     private String type;
     private String vehicleClass;
     private String engineType;
-    private VehicleModelResDto vehicleModel;
+    private VehicleModelResDto model;
 }

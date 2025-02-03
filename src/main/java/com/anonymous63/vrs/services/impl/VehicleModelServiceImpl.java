@@ -4,7 +4,9 @@ import com.anonymous63.vrs.exceptions.DuplicateResourceException;
 import com.anonymous63.vrs.exceptions.ResourceNotFoundException;
 import com.anonymous63.vrs.models.dtos.reqDtos.VehicleModelReqDto;
 import com.anonymous63.vrs.models.dtos.resDtos.VehicleModelResDto;
+import com.anonymous63.vrs.models.entities.VehicleBrand;
 import com.anonymous63.vrs.models.entities.VehicleModel;
+import com.anonymous63.vrs.repositories.VehicleBrandRepo;
 import com.anonymous63.vrs.repositories.VehicleModelRepo;
 import com.anonymous63.vrs.services.VehicleModelService;
 import org.modelmapper.ModelMapper;
@@ -17,10 +19,12 @@ import java.util.List;
 public class VehicleModelServiceImpl implements VehicleModelService {
 
     private final VehicleModelRepo vehicleModelRepo;
+    private final VehicleBrandRepo vehicleBrandRepo;
     private final ModelMapper mapper;
 
-    public VehicleModelServiceImpl(VehicleModelRepo vehicleModelRepo, ModelMapper mapper) {
+    public VehicleModelServiceImpl(VehicleModelRepo vehicleModelRepo, VehicleBrandRepo vehicleBrandRepo, ModelMapper mapper) {
         this.vehicleModelRepo = vehicleModelRepo;
+        this.vehicleBrandRepo = vehicleBrandRepo;
         this.mapper = mapper;
     }
 
@@ -29,7 +33,12 @@ public class VehicleModelServiceImpl implements VehicleModelService {
         this.vehicleModelRepo.findByModel(request.getModel()).ifPresent(vehicleModel -> {
             throw new DuplicateResourceException(VehicleModel.class.getSimpleName(), request.getModel());
         });
+
+        VehicleBrand brand = this.vehicleBrandRepo.findById(request.getBrandId())
+                .orElseThrow(() -> new ResourceNotFoundException(VehicleBrand.class.getSimpleName(), "Brand", String.valueOf(request.getBrandId())));
+
         VehicleModel model = mapper.map(request, VehicleModel.class);
+        model.setVehicleBrand(brand);
         VehicleModel createdModel = this.vehicleModelRepo.save(model);
         return this.mapper.map(createdModel, VehicleModelResDto.class);
     }
