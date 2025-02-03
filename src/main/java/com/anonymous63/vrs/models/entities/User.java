@@ -29,9 +29,8 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @Column(length = 200)
-    @Basic(fetch = FetchType.LAZY)
-    private String about;
+    @Column(nullable = false)
+    private String mobileNo;
 
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private List<Vehicle> vehicles = new ArrayList<>();

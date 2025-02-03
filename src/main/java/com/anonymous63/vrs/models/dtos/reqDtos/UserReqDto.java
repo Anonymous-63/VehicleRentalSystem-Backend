@@ -14,6 +14,6 @@ public class UserReqDto {
     private String email;
     @NotEmpty
     private String password;
-    private String about;
+    private String mobileNo;
     private Boolean enabled;
 }
