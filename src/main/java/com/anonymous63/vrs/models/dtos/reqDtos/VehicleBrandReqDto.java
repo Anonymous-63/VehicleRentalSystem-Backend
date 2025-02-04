@@ -12,5 +12,4 @@ public class VehicleBrandReqDto {
     private String brand;
     private String logo;
     private String description;
-    private List<VehicleModelReqDto> vehicleModels;
 }
