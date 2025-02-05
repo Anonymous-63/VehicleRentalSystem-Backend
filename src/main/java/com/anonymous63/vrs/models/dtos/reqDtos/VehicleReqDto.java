@@ -14,6 +14,7 @@ public class VehicleReqDto {
     private Long brandId;
     private Long modelId;
     private Long typeId;
+    private String vehicleImg;
     private String color;
     private String licensePlate;
     private int manufactureYear;

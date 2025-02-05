@@ -10,6 +10,13 @@ public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne
+    private VehicleBrand brand;
+    @ManyToOne
+    private VehicleType type;
+    @ManyToOne
+    private VehicleModel model;
+    private String vehicleImg;
     private String color;
     @Column(unique = true, nullable = false)
     private String licensePlate;
@@ -17,10 +24,5 @@ public class Vehicle {
     private String vehicleRegStatus;
     private String fuelType;
     private String transmission;
-    @ManyToOne
-    private VehicleBrand brand;
-    @ManyToOne
-    private VehicleType type;
-    @ManyToOne
-    private VehicleModel model;
+
 }

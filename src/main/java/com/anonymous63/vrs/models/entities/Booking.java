@@ -22,8 +22,8 @@ public class Booking {
     private User user;
     @ManyToOne
     private Vehicle vehicle;
-    private LocalDateTime startDateTime;
-    private LocalDateTime endDateTime;
+    private LocalDateTime fromDate;
+    private LocalDateTime toDate;
     @CreationTimestamp
     private LocalDateTime createDateTime;
     @UpdateTimestamp

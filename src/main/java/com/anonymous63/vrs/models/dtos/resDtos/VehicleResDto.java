@@ -11,6 +11,7 @@ public class VehicleResDto {
     private VehicleBrandResDto brand;
     private VehicleModelResDto model;
     private VehicleTypeResDto type;
+    private String vehicleImg;
     private String color;
     private String licensePlate;
     private int manufactureYear;
