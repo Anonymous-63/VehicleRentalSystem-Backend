@@ -10,10 +10,9 @@ import lombok.Data;
 @Data
 public class PaymentResDto {
     private Long paymentId;
+    private BookingResDto booking;
+    private UserResDto user;
     private PaymentType paymentType;
     private Long transactionId;
-    private String paymentDate;
-    private String paymentAmount;
-    private Booking booking;
-    private User user;
+    private Double amount;
 }

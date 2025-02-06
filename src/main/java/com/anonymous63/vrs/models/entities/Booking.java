@@ -24,12 +24,15 @@ public class Booking {
     private Vehicle vehicle;
     private LocalDateTime fromDate;
     private LocalDateTime toDate;
+    private Integer duration;
+    private Double price;
+    @Enumerated(EnumType.STRING)
+    private BookingStatus bookingStatus;
+
     @CreationTimestamp
     private LocalDateTime createDateTime;
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
-    private Double price;
-    private BookingStatus bookingStatus;
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Payment> payments = new ArrayList<>();

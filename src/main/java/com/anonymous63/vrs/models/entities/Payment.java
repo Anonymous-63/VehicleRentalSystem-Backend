@@ -4,6 +4,7 @@ import com.anonymous63.vrs.payloads.enums.PaymentType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Data
 @Entity
@@ -12,12 +13,14 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentId;
-    private PaymentType paymentType;
-    private Long transactionId;
-    private String paymentDate;
-    private String paymentAmount;
     @ManyToOne
     private Booking booking;
     @ManyToOne
     private User user;
+    @Enumerated(EnumType.STRING)
+    private PaymentType paymentType;
+    private Long transactionId;
+    @CreationTimestamp
+    private String paymentDate;
+    private String paymentAmount;
 }

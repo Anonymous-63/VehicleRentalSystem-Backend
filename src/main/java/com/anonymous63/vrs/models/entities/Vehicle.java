@@ -3,6 +3,9 @@ package com.anonymous63.vrs.models.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "vehicles")
@@ -24,5 +27,8 @@ public class Vehicle {
     private String vehicleRegStatus;
     private String fuelType;
     private String transmission;
+
+    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Booking> bookings = new ArrayList<>();
 
 }

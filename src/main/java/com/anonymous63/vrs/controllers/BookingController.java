@@ -26,27 +26,32 @@ public class BookingController implements CrudController<BookingReqDto, BookingR
     }
 
     @Override
-    public ApiResponse<BookingResDto> update(Long aLong, BookingReqDto bookingReqDto) {
-        return null;
+    public ApiResponse<BookingResDto> update(Long id, BookingReqDto bookingReqDto) {
+        BookingResDto updatedBooking = this.bookingService.update(id, bookingReqDto);
+        return ApiResponse.<BookingResDto>builder().status(true).message("Booking updated successfully").data(updatedBooking).build();
     }
 
     @Override
-    public ApiResponse<?> delete(Long aLong) {
-        return null;
+    public ApiResponse<?> delete(Long id) {
+        this.bookingService.delete(id);
+        return ApiResponse.builder().status(true).message("Booking deleted successfully.").build();
     }
 
     @Override
-    public ApiResponse<?> multiDelete(List<Long> longs) {
-        return null;
+    public ApiResponse<?> multiDelete(List<Long> ids) {
+        this.bookingService.multiDelete(ids);
+        return ApiResponse.builder().status(true).message("Bookings deleted successfully").build();
     }
 
     @Override
-    public ApiResponse<BookingResDto> getById(Long aLong) {
-        return null;
+    public ApiResponse<BookingResDto> getById(Long id) {
+        BookingResDto retrievedBooking = this.bookingService.getById(id);
+        return ApiResponse.<BookingResDto>builder().status(true).message("Booking retrieved successfully").data(retrievedBooking).build();
     }
 
     @Override
     public ApiResponse<List<BookingResDto>> getAll() {
-        return null;
+        List<BookingResDto> retrievedBookings = this.bookingService.getAll();
+        return ApiResponse.<List<BookingResDto>>builder().status(true).message("Bookings fetched successfully").data(retrievedBookings).build();
     }
 }

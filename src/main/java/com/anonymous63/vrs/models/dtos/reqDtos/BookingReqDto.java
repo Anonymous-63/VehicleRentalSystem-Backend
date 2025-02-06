@@ -16,7 +16,8 @@ import java.time.LocalDateTime;
 public class BookingReqDto {
     private Long userId;
     private Long vehicleId;
-    private LocalDateTime startDateTime;
-    private LocalDateTime endDateTime;
+    private LocalDateTime fromDate;
+    private LocalDateTime toDate;
+    private Integer duration;
     private Double price;
 }

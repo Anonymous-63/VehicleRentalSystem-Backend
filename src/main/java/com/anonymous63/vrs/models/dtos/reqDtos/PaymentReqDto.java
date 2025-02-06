@@ -11,12 +11,7 @@ import lombok.Data;
 @Data
 @Builder
 public class PaymentReqDto {
-    private Long paymentId;
-    private Long transactionId;
     private Long bookingId;
     private Long userId;
-    private PaymentType paymentType;
-    private String paymentDate;
     private String paymentAmount;
-    private String paymentStatus;
 }
