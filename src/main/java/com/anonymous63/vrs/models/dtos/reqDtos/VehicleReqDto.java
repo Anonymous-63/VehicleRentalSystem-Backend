@@ -20,4 +20,5 @@ public class VehicleReqDto {
     private int manufactureYear;
     private String fuelType;
     private String transmission;
+    private Double pricePerDay;
 }

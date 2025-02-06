@@ -19,6 +19,7 @@ public class Vehicle {
     private VehicleType type;
     @ManyToOne
     private VehicleModel model;
+    @Lob
     private String vehicleImg;
     private String color;
     @Column(unique = true, nullable = false)
@@ -27,6 +28,7 @@ public class Vehicle {
     private String vehicleRegStatus;
     private String fuelType;
     private String transmission;
+    private Double pricePerDay;
 
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Booking> bookings = new ArrayList<>();

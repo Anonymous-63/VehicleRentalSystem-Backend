@@ -14,7 +14,6 @@ public class VehicleModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String model;
-    @Lob
     private String description;
 
     @ManyToOne

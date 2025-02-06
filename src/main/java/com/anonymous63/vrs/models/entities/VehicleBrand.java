@@ -14,8 +14,8 @@ public class VehicleBrand {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String brand;
-    private String logo;
     @Lob
+    private String logo;
     private String description;
 
     @OneToMany(mappedBy = "vehicleBrand", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

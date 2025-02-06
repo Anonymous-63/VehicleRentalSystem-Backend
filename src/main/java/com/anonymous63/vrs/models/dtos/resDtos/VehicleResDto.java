@@ -18,4 +18,5 @@ public class VehicleResDto {
     private String vehicleRegStatus;
     private String fuelType;
     private String transmission;
+    private Double pricePerDay;
 }
