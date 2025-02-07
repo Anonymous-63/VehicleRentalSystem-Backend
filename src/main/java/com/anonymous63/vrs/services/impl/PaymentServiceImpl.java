@@ -7,6 +7,8 @@ import com.anonymous63.vrs.models.dtos.resDtos.PaymentResDto;
 import com.anonymous63.vrs.models.entities.Booking;
 import com.anonymous63.vrs.models.entities.Payment;
 import com.anonymous63.vrs.models.entities.User;
+import com.anonymous63.vrs.payloads.enums.BookingStatus;
+import com.anonymous63.vrs.payloads.enums.PaymentType;
 import com.anonymous63.vrs.repositories.BookingRepo;
 import com.anonymous63.vrs.repositories.PaymentRepo;
 import com.anonymous63.vrs.repositories.UserRepo;
@@ -14,7 +16,9 @@ import com.anonymous63.vrs.services.PaymentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,10 +40,19 @@ public class PaymentServiceImpl implements PaymentService {
     public PaymentResDto create(PaymentReqDto request) {
         Booking booking = this.bookingRepo.findById(request.getBookingId()).orElseThrow(() -> new ResourceNotFoundException(Booking.class.getSimpleName(), "id", String.valueOf(request.getBookingId())));
         User user = this.userRepo.findById(request.getUserId()).orElseThrow(() -> new ResourceNotFoundException(User.class.getSimpleName(), "id", String.valueOf(request.getUserId())));
-        Payment payment = this.mapper.map(request, Payment.class);
+
+        Payment payment = new Payment();
+        payment.setPaymentAmount(request.getPaymentAmount());
         payment.setBooking(booking);
         payment.setUser(user);
+        payment.setPaymentType(PaymentType.CREDIT);
+        payment.setTransactionId(10000000L + new Random().nextInt(90000000));
+
         Payment createdPayment = this.paymentRepo.save(payment);
+
+        booking.setBookingStatus(BookingStatus.APPROVED);
+        this.bookingRepo.save(booking);
+
         return this.mapper.map(createdPayment, PaymentResDto.class);
     }
 

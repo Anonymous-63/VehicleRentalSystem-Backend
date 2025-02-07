@@ -21,7 +21,7 @@ public class PaymentController implements CrudController<PaymentReqDto, PaymentR
     @Override
     public ApiResponse<PaymentResDto> create(PaymentReqDto paymentReqDto) {
         PaymentResDto createdPayment = this.paymentService.create(paymentReqDto);
-        return ApiResponse.<PaymentResDto>builder().status(true).message("Payment created successfully.").data(createdPayment).build();
+        return ApiResponse.<PaymentResDto>builder().status(true).message("Payment successful.").data(createdPayment).build();
     }
 
     @Override

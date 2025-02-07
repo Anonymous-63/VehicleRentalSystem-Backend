@@ -22,5 +22,5 @@ public class Payment {
     private Long transactionId;
     @CreationTimestamp
     private String paymentDate;
-    private String paymentAmount;
+    private Double paymentAmount;
 }

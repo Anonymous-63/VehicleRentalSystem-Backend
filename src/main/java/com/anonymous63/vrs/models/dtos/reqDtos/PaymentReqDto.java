@@ -13,5 +13,5 @@ import lombok.Data;
 public class PaymentReqDto {
     private Long bookingId;
     private Long userId;
-    private String paymentAmount;
+    private Double paymentAmount;
 }

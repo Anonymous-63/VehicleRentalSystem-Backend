@@ -22,7 +22,7 @@ public class BookingController implements CrudController<BookingReqDto, BookingR
     @Override
     public ApiResponse<BookingResDto> create(BookingReqDto bookingReqDto) {
         BookingResDto createdBooking = this.bookingService.create(bookingReqDto);
-        return ApiResponse.<BookingResDto>builder().status(true).message("Booking created successfully.").data(createdBooking).build();
+        return ApiResponse.<BookingResDto>builder().status(true).message("Booking successful.").data(createdBooking).build();
     }
 
     @Override
