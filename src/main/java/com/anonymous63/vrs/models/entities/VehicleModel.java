@@ -19,6 +19,6 @@ public class VehicleModel {
     @ManyToOne
     private VehicleBrand vehicleBrand;
 
-    @OneToMany(mappedBy = "vehicleModel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "vehicleModel", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<VehicleType> vehicleTypes = new ArrayList<>();
 }

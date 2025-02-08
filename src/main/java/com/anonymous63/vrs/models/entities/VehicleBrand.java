@@ -15,9 +15,10 @@ public class VehicleBrand {
     private Long id;
     private String brand;
     @Lob
+    @Basic(fetch = FetchType.EAGER)
     private String logo;
     private String description;
 
-    @OneToMany(mappedBy = "vehicleBrand", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "vehicleBrand", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<VehicleModel> vehicleModels = new ArrayList<>();
 }

@@ -4,8 +4,7 @@ import com.anonymous63.vrs.models.dtos.reqDtos.BookingReqDto;
 import com.anonymous63.vrs.models.dtos.resDtos.BookingResDto;
 import com.anonymous63.vrs.payloads.responses.ApiResponse;
 import com.anonymous63.vrs.services.BookingService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -53,5 +52,11 @@ public class BookingController implements CrudController<BookingReqDto, BookingR
     public ApiResponse<List<BookingResDto>> getAll() {
         List<BookingResDto> retrievedBookings = this.bookingService.getAll();
         return ApiResponse.<List<BookingResDto>>builder().status(true).message("Bookings fetched successfully").data(retrievedBookings).build();
+    }
+
+    @GetMapping("/user/{userId}")
+    public ApiResponse<List<BookingResDto>> getBookingsByUserId(@PathVariable Long userId) {
+        List<BookingResDto> bookingRes = this.bookingService.getBookingsByUserId(userId);
+        return ApiResponse.<List<BookingResDto>>builder().status(true).message("Booking fetched successfully").data(bookingRes).build();
     }
 }

@@ -15,4 +15,5 @@ public class PaymentResDto {
     private PaymentType paymentType;
     private Long transactionId;
     private Double amount;
+    private String paymentDate;
 }

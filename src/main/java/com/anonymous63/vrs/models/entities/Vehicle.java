@@ -20,6 +20,7 @@ public class Vehicle {
     @ManyToOne
     private VehicleModel model;
     @Lob
+    @Basic(fetch = FetchType.EAGER)
     private String vehicleImg;
     private String color;
     @Column(unique = true, nullable = false)
@@ -30,7 +31,7 @@ public class Vehicle {
     private String transmission;
     private Double pricePerDay;
 
-    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Booking> bookings = new ArrayList<>();
 
 }

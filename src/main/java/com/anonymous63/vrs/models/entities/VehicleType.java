@@ -17,6 +17,7 @@ public class VehicleType {
     private String vehicleClass;
     private String engineType;
     @Lob
+    @Basic(fetch = FetchType.LAZY)
     private String description;
 
     @ManyToOne

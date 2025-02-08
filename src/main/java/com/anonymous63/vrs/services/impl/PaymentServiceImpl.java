@@ -90,4 +90,10 @@ public class PaymentServiceImpl implements PaymentService {
         List<Payment> payments = this.paymentRepo.findAllById(ids);
         this.paymentRepo.deleteAll(payments);
     }
+
+    @Override
+    public List<PaymentResDto> getPaymentsByUserId(Long userId) {
+        List<Payment> payments = this.paymentRepo.findByUserId(userId);
+        return payments.stream().map(payment -> mapper.map(payment, PaymentResDto.class)).collect(Collectors.toList());
+    }
 }

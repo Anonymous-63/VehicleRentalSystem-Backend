@@ -18,9 +18,9 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookingId;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Vehicle vehicle;
     private LocalDateTime fromDate;
     private LocalDateTime toDate;
@@ -34,6 +34,6 @@ public class Booking {
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
 
-    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Payment> payments = new ArrayList<>();
 }

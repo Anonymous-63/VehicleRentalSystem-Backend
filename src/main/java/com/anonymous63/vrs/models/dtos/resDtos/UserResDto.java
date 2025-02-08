@@ -10,4 +10,5 @@ public class UserResDto {
     private String name;
     private String email;
     private String mobileNo;
+    private String role;
 }

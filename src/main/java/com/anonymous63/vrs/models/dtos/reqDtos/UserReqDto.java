@@ -15,5 +15,6 @@ public class UserReqDto {
     @NotEmpty
     private String password;
     private String mobileNo;
+    private String role;
     private Boolean enabled;
 }

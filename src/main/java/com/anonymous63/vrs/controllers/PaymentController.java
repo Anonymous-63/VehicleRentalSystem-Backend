@@ -1,9 +1,12 @@
 package com.anonymous63.vrs.controllers;
 
 import com.anonymous63.vrs.models.dtos.reqDtos.PaymentReqDto;
+import com.anonymous63.vrs.models.dtos.resDtos.BookingResDto;
 import com.anonymous63.vrs.models.dtos.resDtos.PaymentResDto;
 import com.anonymous63.vrs.payloads.responses.ApiResponse;
 import com.anonymous63.vrs.services.PaymentService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,5 +55,11 @@ public class PaymentController implements CrudController<PaymentReqDto, PaymentR
     public ApiResponse<List<PaymentResDto>> getAll() {
         List<PaymentResDto> retrievedPayments = this.paymentService.getAll();
         return ApiResponse.<List<PaymentResDto>>builder().status(true).message("Payments fetched successfully").data(retrievedPayments).build();
+    }
+
+    @GetMapping("/user/{userId}")
+    public ApiResponse<List<PaymentResDto>> getPaymentsByUserId(@PathVariable Long userId) {
+        List<PaymentResDto> paymentsRes = this.paymentService.getPaymentsByUserId(userId);
+        return ApiResponse.<List<PaymentResDto>>builder().status(true).message("Payments fetched successfully").data(paymentsRes).build();
     }
 }

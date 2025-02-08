@@ -13,9 +13,9 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentId;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Booking booking;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
     @Enumerated(EnumType.STRING)
     private PaymentType paymentType;

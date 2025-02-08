@@ -98,4 +98,10 @@ public class BookingServiceImpl implements BookingService {
         List<Booking> bookings = this.bookingRepo.findAllById(ids);
         this.bookingRepo.deleteAll(bookings);
     }
+
+    @Override
+    public List<BookingResDto> getBookingsByUserId(Long userId) {
+        List<Booking> bookings = this.bookingRepo.findByUserId(userId);
+        return bookings.stream().map(booking -> mapper.map(booking, BookingResDto.class)).collect(Collectors.toList());
+    }
 }
