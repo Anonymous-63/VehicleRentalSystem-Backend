@@ -92,4 +92,10 @@ public class VehicleServiceImpl implements VehicleService {
         List<Vehicle> vehicles = this.vehicleRepo.findAllById(ids);
         this.vehicleRepo.deleteAll(vehicles);
     }
+
+    @Override
+    public List<VehicleResDto> getAllAvailableVehicle() {
+        List<Vehicle> availableVehicle = this.vehicleRepo.findAllAvailableVehicles();
+        return availableVehicle.stream().map(vehicle -> this.mapper.map(vehicle, VehicleResDto.class)).toList();
+    }
 }
